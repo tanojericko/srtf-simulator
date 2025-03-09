@@ -1,0 +1,21 @@
+{
+    "name": "SRTF CPU Scheduling Simulator",
+    "short_name": "SRTF Simulator",
+    "description": "A simulator for Shortest Remaining Time First (SRTF) CPU scheduling algorithm.",
+    "start_url": "/srtf-simulator/", 
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#007aff",
+    "icons": [
+        {
+            "src": "assets/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

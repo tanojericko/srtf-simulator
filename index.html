@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRTF CPU Scheduling Simulator</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center">SRTF CPU Scheduling Simulator</h2>
+
+        <!-- Input Section -->
+        <div id="inputSection" class="card mb-4">
+            <label for="numProcesses" class="form-label">Number of Processes:</label>
+            <input type="number" id="numProcesses" class="form-control mb-3" placeholder="Enter number of processes">
+
+            <button onclick="createInputFields()" class="btn">Generate Input Fields</button>
+
+            <div id="processInputs" class="mt-4"></div>
+
+            <button onclick="calculateSRTF()" class="btn btn-success mt-3">Run SRTF</button>
+        </div>
+
+        <!-- Output Section -->
+        <div id="outputSection" class="card mt-5" style="display:none;">
+            <h4>Scheduling Results:</h4>
+
+            <!-- Gantt Chart -->
+            <h5>Gantt Chart:</h5>
+            <div id="ganttChart" class="gantt-chart"></div>
+
+            <!-- TAT Calculation Table -->
+            <h5 class="mt-4">Turnaround Time (TAT) Calculation:</h5>
+            <table class="table" id="tatTable">
+                <thead>
+                    <tr>
+                        <th>Process</th>
+                        <th>Turnaround Time (TAT)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <!-- WT Calculation Table -->
+            <h5 class="mt-4">Waiting Time (WT) Calculation:</h5>
+            <table class="table" id="wtTable">
+                <thead>
+                    <tr>
+                        <th>Process</th>
+                        <th>Waiting Time (WT)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <!-- CPU Metrics -->
+            <h5 class="mt-4">CPU Metrics:</h5>
+            <ul>
+                <li><strong>CPU Utilization:</strong> <span id="cpuUtilization"></span>%</li>
+                <li><strong>Throughput:</strong> <span id="throughput"></span> processes/unit time</li>
+                <li><strong>Average Turnaround Time:</strong> <span id="avgTAT"></span> time units</li>
+                <li><strong>Average Waiting Time:</strong> <span id="avgWT"></span> time units</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log('Service Worker Registered'))
+                .catch(err => console.log('Service Worker Registration Failed: ', err));
+        }
+    </script>
+</body>
+
+</html>
