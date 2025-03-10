@@ -123,7 +123,8 @@ function displayGanttChart(ganttChart) {
     });
 }
 
-// Calculate and Display CPU Metrics
+
+// Updated Metrics Calculation with Trivia Call
 function calculateMetrics(ganttChart, idleTime) {
     const totalTime = ganttChart[ganttChart.length - 1].endTime;
     const cpuBusyTime = totalTime - idleTime;
@@ -136,10 +137,17 @@ function calculateMetrics(ganttChart, idleTime) {
     const tatSum = processes.reduce((sum, p) => sum + p.turnaroundTime, 0);
     const wtSum = processes.reduce((sum, p) => sum + p.waitingTime, 0);
 
-    document.getElementById('cpuUtilization').textContent = ((cpuBusyTime / totalTime) * 100).toFixed(2);
-    document.getElementById('throughput').textContent = (processes.length / totalTime).toFixed(2);
-    document.getElementById('avgTAT').textContent = (tatSum / processes.length).toFixed(2);
-    document.getElementById('avgWT').textContent = (wtSum / processes.length).toFixed(2);
+    const cpuUtilization = ((cpuBusyTime / totalTime) * 100).toFixed(2);
+    const throughput = (processes.length / totalTime).toFixed(2);
+    const avgTAT = (tatSum / processes.length).toFixed(2);
+    const avgWT = (wtSum / processes.length).toFixed(2);
+
+    document.getElementById('cpuUtilization').textContent = cpuUtilization;
+    document.getElementById('throughput').textContent = throughput;
+    document.getElementById('avgTAT').textContent = avgTAT;
+    document.getElementById('avgWT').textContent = avgWT;
+
+    displayTrivia(cpuUtilization, throughput, avgTAT, avgWT);
 
     const tatTableBody = document.querySelector('#tatTable tbody');
     tatTableBody.innerHTML = '';
@@ -166,13 +174,60 @@ function calculateMetrics(ganttChart, idleTime) {
     });
 }
 
-// Theme Toggle
-function toggleTheme() {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
-    if (currentTheme === 'dark') {
-        body.setAttribute('data-theme', 'light');
+// Calculate and Display CPU Metrics
+function displayTrivia(cpuUtilization, throughput, avgTAT, avgWT) {
+    const triviaContainer = document.getElementById('triviaSection');
+    triviaContainer.innerHTML = '<h3>Fun Facts & Trivia:</h3>';
+
+    // CPU Utilization Trivia
+    if (cpuUtilization > 80) {
+        triviaContainer.innerHTML += '<p>High Utilization: Your CPU is working hard—just like during peak hours at a data center!</p>';
+    } else if (cpuUtilization > 50) {
+        triviaContainer.innerHTML += '<p>Balanced Load: Most modern CPUs are optimized to work efficiently at this range.</p>';
     } else {
-        body.setAttribute('data-theme', 'dark');
+        triviaContainer.innerHTML += '<p>Low Utilization: Did you know early CPUs like the Intel 4004 had only 0.07 MHz speed?</p>';
+    }
+
+    // Throughput Trivia
+    if (throughput > 1) {
+        triviaContainer.innerHTML += '<p>High Throughput: Google handles over 99,000 searches per second worldwide!</p>';
+    } else {
+        triviaContainer.innerHTML += '<p>Low Throughput: Real-world systems optimize algorithms to improve throughput dramatically!</p>';
+    }
+
+    // Average Turnaround Time (TAT) Trivia
+    if (avgTAT < 10) {
+        triviaContainer.innerHTML += '<p>Fast Completion: Did you know the fastest supercomputers can process up to 442 petaflops?</p>';
+    } else {
+        triviaContainer.innerHTML += '<p>Long TAT: Early computers in the 1940s took hours to complete basic tasks.</p>';
+    }
+
+    // Average Waiting Time (WT) Trivia
+    if (avgWT < 5) {
+        triviaContainer.innerHTML += '<p>Minimal Wait: Your system is as fast as a Formula 1 pit stop!</p>';
+    } else {
+        triviaContainer.innerHTML += '<p>Long Wait: Reminds me of buffering on dial-up internet days!</p>';
     }
 }
+
+// Reset the page and scroll to the top
+function resetPage() {
+    // Clear input fields
+    document.getElementById('numProcesses').value = '';
+    document.getElementById('processInputs').innerHTML = '';
+
+    // Hide output section
+    document.getElementById('outputSection').style.display = 'none';
+
+    // Clear Gantt chart and trivia
+    document.getElementById('ganttChart').innerHTML = '';
+    document.getElementById('triviaSection').innerHTML = '';
+
+    // Smooth scroll to the top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Clear stored processes data
+    processes = [];
+}
+
+
