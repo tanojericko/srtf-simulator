@@ -1,11 +1,11 @@
 const CACHE_NAME = 'srtf-simulator-v1';
 const ASSETS = [
-    '/',
-    '/index.html',
-    '/bootstrap.min.css',
-    '/styles.css',
-    '/script.js',
-    '/manifest.json'
+    '/srtf-simulator/',
+    '/srtf-simulator/index.html',
+    '/srtf-simulator/bootstrap.min.css',
+    '/srtf-simulator/styles.css',
+    '/srtf-simulator/script.js',
+    '/srtf-simulator/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
