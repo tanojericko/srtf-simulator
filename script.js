@@ -137,15 +137,16 @@ function calculateMetrics(ganttChart, idleTime) {
     const tatSum = processes.reduce((sum, p) => sum + p.turnaroundTime, 0);
     const wtSum = processes.reduce((sum, p) => sum + p.waitingTime, 0);
 
-    const cpuUtilization = ((cpuBusyTime / totalTime) * 100).toFixed(2);
+    const cpuUtilization = (Math.floor((cpuBusyTime / totalTime) * 100).toFixed());
     const throughput = (processes.length / totalTime).toFixed(2);
     const avgTAT = (tatSum / processes.length).toFixed(2);
     const avgWT = (wtSum / processes.length).toFixed(2);
 
     document.getElementById('cpuUtilization').textContent = cpuUtilization;
     document.getElementById('throughput').textContent = throughput;
-    document.getElementById('avgTAT').textContent = avgTAT;
-    document.getElementById('avgWT').textContent = avgWT;
+
+    document.getElementById('avgTAT').innerHTML = `${avgTAT}`;
+    document.getElementById('avgWT').innerHTML = `${avgWT}`;
 
     displayTrivia(cpuUtilization, throughput, avgTAT, avgWT);
 
@@ -161,6 +162,14 @@ function calculateMetrics(ganttChart, idleTime) {
         tatTableBody.appendChild(row);
     });
 
+    // Add TAT Summation Row
+    const tatSumRow = document.createElement('tr');
+    tatSumRow.innerHTML = `
+        <td><strong>Total</strong></td>
+        <td><strong>${tatSum} (${processes.length} / ${tatSum} = ${avgTAT})</strong></td>
+    `;
+    tatTableBody.appendChild(tatSumRow);
+
     const wtTableBody = document.querySelector('#wtTable tbody');
     wtTableBody.innerHTML = '';
 
@@ -172,7 +181,17 @@ function calculateMetrics(ganttChart, idleTime) {
         `;
         wtTableBody.appendChild(row);
     });
+
+    // Add AWT Summation Row
+    const wtSumRow = document.createElement('tr');
+    wtSumRow.innerHTML = `
+        <td><strong>Total</strong></td>
+        <td><strong>${wtSum} (${processes.length} / ${wtSum} = ${avgWT})</strong></td>
+    `;
+    wtTableBody.appendChild(wtSumRow);
 }
+
+
 
 // Calculate and Display CPU Metrics
 function displayTrivia(cpuUtilization, throughput, avgTAT, avgWT) {
@@ -229,5 +248,3 @@ function resetPage() {
     // Clear stored processes data
     processes = [];
 }
-
-
