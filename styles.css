@@ -1,12 +1,12 @@
-/* Cupertino Design Styles */
+/* Threads-Inspired White Mode */
 :root {
-    --background: #ffffff;
-    --surface: #f2f2f7;
-    --primary: #007aff;
-    --text: #1c1c1e;
-    --border: #d1d1d6;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --radius: 12px;
+    --background: #FFFFFF;       /* White background */
+    --surface: #F9F9F9;          /* Light surface */
+    --primary: #000000;          /* Black primary (text, buttons) */
+    --text: #000000;             /* Black text */
+    --border: rgba(0, 0, 0, 0.2); /* Light gray borders */
+    --radius: 12px;              /* Rounded corners */
+    --shadow: none;              /* No heavy shadows */
 }
 
 body {
@@ -22,21 +22,23 @@ body {
     padding: 20px;
 }
 
+/* Headings */
 h2 {
-    color: var(--primary);
+    color: var(--text);
     font-weight: 700;
     margin-bottom: 20px;
 }
 
+/* Cards */
 .card {
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     padding: 20px;
     margin-bottom: 20px;
 }
 
+/* Form Controls */
 .form-control {
     background-color: var(--surface);
     border: 1px solid var(--border);
@@ -44,25 +46,29 @@ h2 {
     border-radius: var(--radius);
 }
 
+/* Buttons */
 .btn {
     background-color: var(--primary);
-    color: white;
-    border: none;
+    color: var(--background);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 10px 20px;
     font-weight: 500;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .btn:hover {
-    background-color: #0063cc;
+    background-color: var(--surface);
+    color: var(--text);
 }
 
 .gantt-chart {
     display: flex;
     align-items: center;
     margin-top: 20px;
-    overflow-x: auto;
+    overflow-x: auto; 
+    height: 80px; 
+    /* height: 150px; */
 }
 
 .gantt-item {
@@ -92,11 +98,11 @@ h2 {
     color: var(--text);
 }
 
+/* Tables */
 .table {
     background-color: var(--surface);
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: var(--shadow);
 }
 
 .table th,
@@ -105,19 +111,19 @@ h2 {
     color: var(--text);
 }
 
+/* Theme Toggle Button */
 .theme-toggle {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: var(--primary);
-    color: white;
-    border: none;
+    color: var(--background);
+    border: 1px solid var(--border);
     border-radius: 50%;
     width: 50px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow);
     cursor: pointer;
 }
