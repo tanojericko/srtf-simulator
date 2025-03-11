@@ -1,6 +1,5 @@
 let processes = [];
 
-// Generate Input Fields
 function createInputFields() {
     const numProcesses = document.getElementById('numProcesses').value;
     const inputContainer = document.getElementById('processInputs');
@@ -25,7 +24,6 @@ function createInputFields() {
     }
 }
 
-// Collect Data and Start SRTF Calculation
 function calculateSRTF() {
     const numProcesses = parseInt(document.getElementById('numProcesses').value);
     processes = [];
@@ -52,7 +50,6 @@ function calculateSRTF() {
     simulateSRTF();
 }
 
-// SRTF Scheduling Simulation
 function simulateSRTF() {
     let currentTime = 0, completed = 0, idleTime = 0;
     const ganttChart = [];
@@ -97,7 +94,6 @@ function simulateSRTF() {
     document.getElementById('outputSection').style.display = 'block';
 }
 
-// Display Gantt Chart
 function displayGanttChart(ganttChart) {
     const chart = document.getElementById('ganttChart');
     chart.innerHTML = '';
@@ -123,8 +119,6 @@ function displayGanttChart(ganttChart) {
     });
 }
 
-
-// Updated Metrics Calculation with Trivia Call
 function calculateMetrics(ganttChart, idleTime) {
     const totalTime = ganttChart[ganttChart.length - 1].endTime;
     const cpuBusyTime = totalTime - idleTime;
@@ -162,11 +156,11 @@ function calculateMetrics(ganttChart, idleTime) {
         tatTableBody.appendChild(row);
     });
 
-    // Add TAT Summation Row
+
     const tatSumRow = document.createElement('tr');
     tatSumRow.innerHTML = `
         <td><strong>Total</strong></td>
-        <td><strong>${tatSum} (${processes.length} / ${tatSum} = ${avgTAT})</strong></td>
+        <td><strong>${tatSum} (${tatSum} / ${processes.length} = ${avgTAT})</strong></td>
     `;
     tatTableBody.appendChild(tatSumRow);
 
@@ -181,24 +175,19 @@ function calculateMetrics(ganttChart, idleTime) {
         `;
         wtTableBody.appendChild(row);
     });
-
-    // Add AWT Summation Row
     const wtSumRow = document.createElement('tr');
     wtSumRow.innerHTML = `
         <td><strong>Total</strong></td>
-        <td><strong>${wtSum} (${processes.length} / ${wtSum} = ${avgWT})</strong></td>
+        <td><strong>${wtSum} (${wtSum} / ${processes.length} = ${avgWT})</strong></td>
     `;
     wtTableBody.appendChild(wtSumRow);
 }
 
 
-
-// Calculate and Display CPU Metrics
 function displayTrivia(cpuUtilization, throughput, avgTAT, avgWT) {
     const triviaContainer = document.getElementById('triviaSection');
     triviaContainer.innerHTML = '<h3>Fun Facts & Trivia:</h3>';
 
-    // CPU Utilization Trivia
     if (cpuUtilization > 80) {
         triviaContainer.innerHTML += '<p>High Utilization: Your CPU is working hard—just like during peak hours at a data center!</p>';
     } else if (cpuUtilization > 50) {
@@ -207,21 +196,18 @@ function displayTrivia(cpuUtilization, throughput, avgTAT, avgWT) {
         triviaContainer.innerHTML += '<p>Low Utilization: Did you know early CPUs like the Intel 4004 had only 0.07 MHz speed?</p>';
     }
 
-    // Throughput Trivia
     if (throughput > 1) {
         triviaContainer.innerHTML += '<p>High Throughput: Google handles over 99,000 searches per second worldwide!</p>';
     } else {
         triviaContainer.innerHTML += '<p>Low Throughput: Real-world systems optimize algorithms to improve throughput dramatically!</p>';
     }
 
-    // Average Turnaround Time (TAT) Trivia
     if (avgTAT < 10) {
         triviaContainer.innerHTML += '<p>Fast Completion: Did you know the fastest supercomputers can process up to 442 petaflops?</p>';
     } else {
         triviaContainer.innerHTML += '<p>Long TAT: Early computers in the 1940s took hours to complete basic tasks.</p>';
     }
 
-    // Average Waiting Time (WT) Trivia
     if (avgWT < 5) {
         triviaContainer.innerHTML += '<p>Minimal Wait: Your system is as fast as a Formula 1 pit stop!</p>';
     } else {
@@ -229,22 +215,16 @@ function displayTrivia(cpuUtilization, throughput, avgTAT, avgWT) {
     }
 }
 
-// Reset the page and scroll to the top
 function resetPage() {
-    // Clear input fields
     document.getElementById('numProcesses').value = '';
     document.getElementById('processInputs').innerHTML = '';
 
-    // Hide output section
     document.getElementById('outputSection').style.display = 'none';
 
-    // Clear Gantt chart and trivia
     document.getElementById('ganttChart').innerHTML = '';
     document.getElementById('triviaSection').innerHTML = '';
 
-    // Smooth scroll to the top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Clear stored processes data
     processes = [];
 }
