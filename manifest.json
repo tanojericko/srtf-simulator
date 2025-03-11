@@ -5,7 +5,7 @@
     "start_url": "/srtf-simulator/", 
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#007aff",
+    "theme_color": "ffffff",
     "icons": [
         {
             "src": "assets/icon-192x192.png",
