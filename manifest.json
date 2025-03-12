@@ -5,7 +5,7 @@
     "start_url": "/srtf-simulator/", 
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "ffffff",
+    "theme_color": "#ffffff",
     "icons": [
         {
             "src": "assets/icon-192x192.png",
@@ -16,6 +16,32 @@
             "src": "assets/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/srtf-simulator/mobile-1.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/srtf-simulator/mobile-2.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/srtf-simulator/mobile-3.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/srtf-simulator/mobile-4.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow"
         }
     ]
 }
