@@ -58,14 +58,22 @@ function simulateSRTF() {
     while (completed < n) {
         let currentProcess = null;
 
+        // Find the process with the shortest remaining time
         for (let process of processes) {
             if (process.arrivalTime <= currentTime && process.remainingTime > 0) {
-                if (!currentProcess || process.remainingTime < currentProcess.remainingTime) {
+                // Prioritize by shortest remaining time
+                // If two processes have the same remaining time, choose the one with the earliest arrival time
+                if (
+                    !currentProcess || 
+                    process.remainingTime < currentProcess.remainingTime || 
+                    (process.remainingTime === currentProcess.remainingTime && process.arrivalTime < currentProcess.arrivalTime)
+                ) {
                     currentProcess = process;
                 }
             }
         }
 
+        // Handle CPU idle time if no process is ready
         if (!currentProcess) {
             idleTime++;
             ganttChart.push({ name: "Idle", startTime: currentTime, endTime: currentTime + 1 });
@@ -73,26 +81,32 @@ function simulateSRTF() {
             continue;
         }
 
+        // Execute the selected process for 1 time unit
         currentProcess.remainingTime--;
 
+        // Update the Gantt chart
         if (ganttChart.length === 0 || ganttChart[ganttChart.length - 1].name !== currentProcess.name) {
             ganttChart.push({ name: currentProcess.name, startTime: currentTime, endTime: currentTime + 1 });
         } else {
             ganttChart[ganttChart.length - 1].endTime++;
         }
 
+        // Check if the current process is completed
         if (currentProcess.remainingTime === 0) {
             currentProcess.completionTime = currentTime + 1;
             completed++;
         }
 
+        // Move time forward
         currentTime++;
     }
 
+    // Display the Gantt chart and metrics
     displayGanttChart(ganttChart);
     calculateMetrics(ganttChart, idleTime);
     document.getElementById('outputSection').style.display = 'block';
 }
+
 
 function displayGanttChart(ganttChart) {
     const chart = document.getElementById('ganttChart');
@@ -131,7 +145,7 @@ function calculateMetrics(ganttChart, idleTime) {
     const tatSum = processes.reduce((sum, p) => sum + p.turnaroundTime, 0);
     const wtSum = processes.reduce((sum, p) => sum + p.waitingTime, 0);
 
-    const cpuUtilization = (Math.floor((cpuBusyTime / totalTime) * 100).toFixed());
+    const cpuUtilization = Math.round(((cpuBusyTime / totalTime) * 100).toFixed(2));
     const throughput = (processes.length / totalTime).toFixed(2);
     const avgTAT = (tatSum / processes.length).toFixed(2);
     const avgWT = (wtSum / processes.length).toFixed(2);
